@@ -1,0 +1,16 @@
+﻿{
+  "version": "1.0.0-*",
+  "description": "Aih.DataLoader Class Library",
+  "authors": [ "Arnþór Ingi Hinriksson" ],
+  "tags": [ "" ],
+  "projectUrl": "",
+  "licenseUrl": "",
+
+  "frameworks": {
+    "net461": {
+      "frameworkAssemblies": {
+        "System.Data": "4.0.0.0"
+      }
+    }
+  }
+}
