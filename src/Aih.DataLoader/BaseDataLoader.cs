@@ -47,7 +47,6 @@ namespace Aih.DataLoader.Tools
 
             try
             {
-
                 SetStatusLoad(status);
                 LoadData();
 
@@ -61,7 +60,6 @@ namespace Aih.DataLoader.Tools
                 CleanUp();
 
                 SetStatusFinished(status);
-
             }
             catch (DataLoaderException dx)
             {
@@ -70,7 +68,6 @@ namespace Aih.DataLoader.Tools
                 status.Comment = dx.Message;
                 _statusHandler.UpdateBatchStatusRecord(status);
             }
-
             catch (Exception ex)
             {
                 status.FinishTime = DateTime.Now;

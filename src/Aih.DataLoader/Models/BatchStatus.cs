@@ -19,6 +19,7 @@ namespace Aih.DataLoader.Tools.Models
         public DateTime? StartCleanupTime { get; set; }
         public DateTime? FinishTime { get; set; }
         public string Comment { get; set; }
+        public bool? IsHandled { get; set; }
 
         public override string ToString()
         {

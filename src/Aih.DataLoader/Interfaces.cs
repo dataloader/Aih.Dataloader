@@ -17,7 +17,11 @@ namespace Aih.DataLoader.Tools
     {
         bool CreateBatchStatusRecord(BatchStatus status);
         bool UpdateBatchStatusRecord(BatchStatus status);
+
         bool BatchExists(string batchid);
+        BatchStatus GetStatusRecord(string batchname, string batchid);
+        IList<BatchStatus> GetUnhandledFailedBatches();
+        bool SetBatchHandled(BatchStatus status);
     }
 
 
