@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using Aih.DataLoader.Tools.Models;
-using Aih.DataLoader.Tools.Exceptions;
+using Aih.DataLoader.Interfaces;
+using Aih.DataLoader.Models;
+using Aih.DataLoader.Exceptions;
 
 
-namespace Aih.DataLoader.Tools
+namespace Aih.DataLoader
 {
 
     public abstract class BaseDataLoader
     {
 
-        protected Dictionary<string, string> _properties;
+        protected Dictionary<string, string> _config;
         protected IStatusHandler _statusHandler;
         protected LoaderContext _cntx;
 
@@ -19,10 +20,16 @@ namespace Aih.DataLoader.Tools
 
         }
 
-        public void InitializeHandlers(IPropertyHandler propertyHandler, IStatusHandler statusHandler)
+        public void InitializeHandlers(ILoaderConfigHandler configHandler, IStatusHandler statusHandler)
         {
+            //Note: This implementation form is sub-optimal in terms of performance.  Perhaps it is better to find another way to to this
+            string dllName = this.GetType().Assembly.GetName().Name; //System.Reflection.Assembly.GetExecutingAssembly().FullName;
+
             string typeName = this.GetType().Name;
-            _properties = propertyHandler.GetProperties(typeName);
+
+            
+
+            _config = configHandler.GetLoaderConfig(dllName, typeName);
             _statusHandler = statusHandler;
         }
 

@@ -7,17 +7,35 @@ GO
 USE LoaderDB
 GO
 
-CREATE TABLE [dbo].[BatchProperties](
-	[batchname] [nchar](250) NOT NULL,
+--Being depriciated
+--CREATE TABLE [dbo].[BatchProperties](
+--	[batchname] [nchar](250) NOT NULL,
+--	[key] [nchar](100) NOT NULL,
+--	[value] [nchar](250) NULL,
+--	CONSTRAINT [PK_BatchProperties] PRIMARY KEY CLUSTERED 
+--	(
+--		[batchname] ASC,
+--		[key] ASC
+--	)
+--)
+--GO
+
+
+
+CREATE TABLE [dbo].[LoaderConfig](
+	[loaderContainerName] [nchar](100) NOT NULL,
+	[loadername] [nchar](100) NOT NULL,
 	[key] [nchar](100) NOT NULL,
 	[value] [nchar](250) NULL,
-	CONSTRAINT [PK_BatchProperties] PRIMARY KEY CLUSTERED 
+	CONSTRAINT [PK_LoaderConfig] PRIMARY KEY CLUSTERED 
 	(
-		[batchname] ASC,
+		[loaderContainerName] ASC,
+		[loadername] ASC,
 		[key] ASC
 	)
 )
 GO
+
 
 USE LoaderDB
 GO

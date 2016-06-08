@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Data.SqlClient;
 using System.Collections.Generic;
-using Aih.DataLoader.Tools.Models;
+using Aih.DataLoader.Interfaces;
+using Aih.DataLoader.Models;
 
-namespace Aih.DataLoader.Tools.StatusHandlers
+namespace Aih.DataLoader.StatusHandlers
 {
     public class SQLServerStatusHandler : IStatusHandler
     {
@@ -229,7 +230,7 @@ namespace Aih.DataLoader.Tools.StatusHandlers
 
         private string GetStatusRecordCommand()
         {
-            return @"SELECT[batchname],[batchid],[batchrefrence],[start_time],[start_load_time],[start_transform_time],[start_save_time],[start_cleanup_time],[finish_time],[comment],[status],[handled] FROM [LoaderDB].[dbo].[BatchStatus] where [batchname] = @batchname and [batchid] = @batchid";
+            return @"SELECT[batchname],[batchid],[batchrefrence],[start_time],[start_load_time],[start_transform_time],[start_save_time],[start_cleanup_time],[finish_time],[comment],[status],[handled] FROM [dbo].[BatchStatus] where [batchname] = @batchname and [batchid] = @batchid";
         }
 
         private void SetStatusRecordCommandParams(SqlCommand cmd, string batchname, string batchid)
@@ -242,7 +243,7 @@ namespace Aih.DataLoader.Tools.StatusHandlers
 
         private string GetUnhandledFailedBatchesQuery()
         {
-            return @"SELECT[batchname],[batchid],[batchrefrence],[start_time],[start_load_time],[start_transform_time],[start_save_time],[start_cleanup_time],[finish_time],[comment],[status],[handled] FROM [LoaderDB].[dbo].[BatchStatus] where handled is null AND   [status] = 'Failed'";
+            return @"SELECT[batchname],[batchid],[batchrefrence],[start_time],[start_load_time],[start_transform_time],[start_save_time],[start_cleanup_time],[finish_time],[comment],[status],[handled] FROM [dbo].[BatchStatus] where handled is null AND   [status] = 'Failed'";
         }
 
         private string GetSetBatchHandledCommand()

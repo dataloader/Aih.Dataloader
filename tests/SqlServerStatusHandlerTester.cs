@@ -3,27 +3,33 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
-using Aih.DataLoader.Tools.StatusHandlers;
-using Aih.DataLoader.Tools.Models;
+
+using Aih.DataLoader.Interfaces;
+using Aih.DataLoader.StatusHandlers;
+using Aih.DataLoader.Models;
 
 namespace tests
 {
     public class SqlServerStatusHandlerTester
     {
 
-        private readonly string _connection;
+        //private readonly string _connection;
         private SQLServerStatusHandler _handler;
 
         public SqlServerStatusHandlerTester()
         {
-            _connection = @"Data Source=localhost\SQLEXPRESS;Database=LoaderDB;Integrated Security=True;";
-            _handler = new SQLServerStatusHandler(_connection);
-            string test = "";
+            string dbName = "LoaderStatusHandlerTestDB";
+            LocalDb.CreateLocalDb(dbName, DBCreatorScripts.GetSqlStatusHandlerTestSqlSetup(), true);
+
+           // _connection = LocalDb.GetConnectionString(dbName);  
+
+            _handler = new SQLServerStatusHandler(LocalDb.GetConnectionString(dbName));
+            //string test = "";
         }
 
 
 
-        //[Fact]
+        [Fact]
         public void GetUnhandledFailedBatchesTest()
         {
             BatchStatus status = new BatchStatus()
@@ -45,7 +51,7 @@ namespace tests
         }
 
 
-        //[Fact]
+        [Fact]
         public void UpdateBatchStatusRecordTest()
         {
             BatchStatus status = new BatchStatus()
@@ -74,7 +80,7 @@ namespace tests
 
 
 
-        //[Fact]
+        [Fact]
         public void GetBatchStatusRecordTest()
         {
             BatchStatus status = new BatchStatus()

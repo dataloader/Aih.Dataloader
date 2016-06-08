@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Aih.DataLoader.Tools.Models;
+using Aih.DataLoader.Models;
 
-namespace Aih.DataLoader.Tools
+namespace Aih.DataLoader.Interfaces
 {
-    public interface IPropertyHandler
+
+
+    public interface ILoaderConfigHandler
     {
-        Dictionary<string, string> GetProperties(string batchname);
+        Dictionary<string, string> GetLoaderConfig(string loaderContainerName, string loaderName);
     }
 
 

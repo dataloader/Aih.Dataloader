@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Aih.DataLoader.Tools.Models
+namespace Aih.DataLoader.Models
 {
 
     public class LoaderContext
