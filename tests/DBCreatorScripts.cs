@@ -23,28 +23,18 @@ namespace tests
 		                [key] ASC
 	                )
                 )
-                GO
+
 
                 INSERT INTO [dbo].[LoaderConfig] ([loaderContainerName],[loadername],[key],[value]) VALUES ('SimpleTestConfig', 'SimpleTestLoader', 'key1', 'value1')
-                GO
                 INSERT INTO [dbo].[LoaderConfig] ([loaderContainerName],[loadername],[key],[value]) VALUES ('SimpleTestConfig', 'SimpleTestLoader', 'key2', 'value2')
-                GO
                 INSERT INTO [dbo].[LoaderConfig] ([loaderContainerName],[loadername],[key],[value]) VALUES ('tests', 'TestDataLoader', 'key1', 'value1')
-                GO
                 INSERT INTO [dbo].[LoaderConfig] ([loaderContainerName],[loadername],[key],[value]) VALUES ('tests', 'TestDataLoader', 'key2', 'value2')
-                GO
                 INSERT INTO [dbo].[LoaderConfig] ([loaderContainerName],[loadername],[key],[value]) VALUES ('tests', 'TestDataLoader', 'jointkey1', 'specific value')
-                GO
                 INSERT INTO [dbo].[LoaderConfig] ([loaderContainerName],[loadername],[key],[value]) VALUES ('tests', '*', 'jointkey1', 'general value')
-                GO
                 INSERT INTO [dbo].[LoaderConfig] ([loaderContainerName],[loadername],[key],[value]) VALUES ('tests', '*', 'containerkey1', 'containerval1')
-                GO
                 INSERT INTO [dbo].[LoaderConfig] ([loaderContainerName],[loadername],[key],[value]) VALUES ('tests', '*', 'containerkey2', 'containerval2')
-                GO
                 INSERT INTO [dbo].[LoaderConfig] ([loaderContainerName],[loadername],[key],[value]) VALUES ('*', '*', 'systemkey1', 'systemval1')
-                GO
                 INSERT INTO [dbo].[LoaderConfig] ([loaderContainerName],[loadername],[key],[value]) VALUES ('*', '*', 'systemkey2', 'systemval2')
-                GO
                 ";
             return sql;
         }
@@ -75,7 +65,6 @@ CREATE TABLE [dbo].[BatchStatus](
 	)
 )
 
-GO
 ";
 
             return sql;
