@@ -38,7 +38,7 @@ namespace tests
             loader.RunDataLoader();
 
             bool callCountOK = loader.CallCount == 5;
-            bool configCountOK = loader.ConfigCount == 8;
+            bool configCountOK = loader.ConfigCount == 7;
 
             Assert.True(callCountOK && configCountOK);
         }
