@@ -31,6 +31,8 @@ namespace tests
             string mdfFilename = databaseName + ".mdf";
             string databaseFileName = Path.Combine(outputFolder, mdfFilename);
 
+            Console.WriteLine("DB file: " + databaseFileName);
+
             // Create Data Directory If It Doesn't Already Exist.
             if (!Directory.Exists(outputFolder))
             {
@@ -51,7 +53,6 @@ namespace tests
             {
                 ExecuteScript(databaseName, scriptName);
             }
-
         }
 
 
@@ -61,6 +62,8 @@ namespace tests
             string connectionString = GetConnectionString(databaseName); 
 
             string[] commands = script.Split(new[] { "GO\r\n", "GO ", "GO\t" }, StringSplitOptions.RemoveEmptyEntries);
+
+            Console.WriteLine("commands: " + commands.Length);
 
             using (var connection = new SqlConnection(connectionString))
             {
