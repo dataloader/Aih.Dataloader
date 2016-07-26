@@ -15,6 +15,9 @@ namespace Aih.DataLoader
         protected IStatusHandler _statusHandler;
         protected LoaderContext _cntx;
 
+        private string _guid;
+        private BatchStatus _status;
+
         public BaseDataLoader()
         {
 
@@ -22,17 +25,27 @@ namespace Aih.DataLoader
 
         public void InitializeHandlers(ILoaderConfigHandler configHandler, IStatusHandler statusHandler)
         {
+            _guid = Guid.NewGuid().ToString();
+
             //Note: This implementation form is sub-optimal in terms of performance.  Perhaps it is better to find another way to to this
             string dllName = this.GetType().Assembly.GetName().Name; //System.Reflection.Assembly.GetExecutingAssembly().FullName;
 
             string typeName = this.GetType().Name;
-
-            
-
             _config = configHandler.GetLoaderConfig(dllName, typeName);
             _statusHandler = statusHandler;
         }
 
+
+
+        public void SetStatusComment(string comment)
+        {
+            if(_status != null)
+            {
+                _status.Comment = comment;
+                _statusHandler.UpdateBatchStatusRecord(_status);
+            }
+
+        }
 
 
         public abstract string Initialize();
@@ -47,40 +60,40 @@ namespace Aih.DataLoader
         {
             string currentClassName = this.GetType().Name;
             string batchrefrence = Initialize();
-            string guid = Guid.NewGuid().ToString();
+            
 
-            BatchStatus status = new BatchStatus() { BatchName = currentClassName, BatchId = guid, BatchRefrence = batchrefrence, StartTime = DateTime.Now, Comment = "", Status = "Started" };
-            _statusHandler.CreateBatchStatusRecord(status);
+             _status = new BatchStatus() { BatchName = currentClassName, BatchId = _guid, BatchRefrence = batchrefrence, StartTime = DateTime.Now, Comment = "", Status = "Started" };
+            _statusHandler.CreateBatchStatusRecord(_status);
 
             try
             {
-                SetStatusLoad(status);
+                SetStatusLoad(_status);
                 LoadData();
 
-                SetStatusTransform(status);
+                SetStatusTransform(_status);
                 TransformData();
 
-                SetStatusSaving(status);
+                SetStatusSaving(_status);
                 SaveData();
 
-                SetStatusCleanUp(status);
+                SetStatusCleanUp(_status);
                 CleanUp();
 
-                SetStatusFinished(status);
+                SetStatusFinished(_status);
             }
             catch (DataLoaderException dx)
             {
-                status.FinishTime = DateTime.Now;
-                status.Status = dx.Status;
-                status.Comment = dx.Message;
-                _statusHandler.UpdateBatchStatusRecord(status);
+                _status.Status = dx.Status;
+                _status.Comment = dx.Message;
+                _status.FinishTime = DateTime.Now;
+                _statusHandler.UpdateBatchStatusRecord(_status);
             }
             catch (Exception ex)
             {
-                status.FinishTime = DateTime.Now;
-                status.Status = "Failed";
-                status.Comment = ex.Message;
-                _statusHandler.UpdateBatchStatusRecord(status);
+                _status.FinishTime = DateTime.Now;
+                _status.Status = "Failed";
+                _status.Comment = ex.Message;
+                _statusHandler.UpdateBatchStatusRecord(_status);
             }
         }
 
