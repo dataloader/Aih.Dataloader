@@ -62,3 +62,11 @@ CREATE TABLE [dbo].[BatchStatus](
 )
 
 GO
+
+
+CREATE VIEW [dbo].[ActiveDataLoaders]
+AS
+SELECT        batchname AS loadername
+FROM            dbo.BatchStatus
+WHERE        (DATEDIFF(day, start_time, GETDATE()) BETWEEN 0 AND 60)
+GROUP BY batchname
