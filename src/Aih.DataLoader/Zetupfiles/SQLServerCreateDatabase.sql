@@ -7,19 +7,6 @@ GO
 USE LoaderDB
 GO
 
---Being depriciated
---CREATE TABLE [dbo].[BatchProperties](
---	[batchname] [nchar](250) NOT NULL,
---	[key] [nchar](100) NOT NULL,
---	[value] [nchar](250) NULL,
---	CONSTRAINT [PK_BatchProperties] PRIMARY KEY CLUSTERED 
---	(
---		[batchname] ASC,
---		[key] ASC
---	)
---)
---GO
-
 
 
 CREATE TABLE [dbo].[LoaderConfig](
@@ -35,6 +22,22 @@ CREATE TABLE [dbo].[LoaderConfig](
 	)
 )
 GO
+
+
+CREATE TABLE [dbo].[RegisteredDataLoaders](
+	[LoaderContainerName] [nchar](100) NOT NULL,
+	[Loadername] [nchar](100) NOT NULL,
+	[ContainerFullPath] [nchar](100) NOT NULL,
+	[Version] [nchar](250) NULL,
+	CONSTRAINT [PK_RegisteredDataLoaders] PRIMARY KEY CLUSTERED 
+	(
+		[loaderContainerName] ASC,
+		[loadername] ASC
+	)
+)
+GO
+
+
 
 
 USE LoaderDB
@@ -64,9 +67,3 @@ CREATE TABLE [dbo].[BatchStatus](
 GO
 
 
-CREATE VIEW [dbo].[ActiveDataLoaders]
-AS
-SELECT        batchname AS loadername
-FROM            dbo.BatchStatus
-WHERE        (DATEDIFF(day, start_time, GETDATE()) BETWEEN 0 AND 60)
-GROUP BY batchname
